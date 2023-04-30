@@ -13,6 +13,10 @@ class AuthController extends  BaseController{
         $this->render('login');
     }
     
+    public function logout(){
+        $this->adminSessionEnd();
+        $this->router->route('main');
+    }
     
     public function authentificate(){
               

@@ -23,7 +23,7 @@
 <textarea class="form-control" name="descripition"   rows="3">{{ $descripition ?? '' }}</textarea>
 </div>
 
-@if(isset($admin) && $admin==1)
+@if(isset($admin) && $admin==1 && $action==$sitePath.'update_task')
 <div class="form-check">
   <input class="form-check-input" type="checkbox" name="status" {{ $status == 1 ? 'checked' : ' '}}>
   <label class="form-check-label" for="flexCheckDefault">

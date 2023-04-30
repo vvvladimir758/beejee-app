@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item">
         @if(isset($admin) && $admin==1)
-        <a class="nav-link" href="{{$sitePath}}login/">Выход</a>
+        <a class="nav-link" href="{{$sitePath}}logout/">Выход</a>
         @endif
         @if(!isset($admin) || $admin!=1)
          <a class="nav-link" href="{{$sitePath}}login/">Для админа</a>

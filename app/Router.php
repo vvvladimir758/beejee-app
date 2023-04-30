@@ -29,7 +29,8 @@ class Router{
         'delete_task'=>['TaskController','store'],
         'update_task'=>['TaskController','update'],
         'login'=>['AuthController','login'],
-        'authentificate'=>['AuthController','authentificate']
+        'logout'=>['AuthController','logout'],
+        'authentificate'=>['AuthController','authentificate'],
     ];
     
  
