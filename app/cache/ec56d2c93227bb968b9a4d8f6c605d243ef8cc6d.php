@@ -1,21 +1,13 @@
-
-
-<?php $__env->startSection('title'); ?>
-    Основная
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('content'); ?>
-
-<?php
-$action = $sitePath.'store_task';
-?>
-
-<?php echo $__env->make('part.task_form',['action'=> $action], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
 <form method="POST" action="<?php echo e($action); ?>">
 
 <?php if(isset($taskId)): ?>
 <input type="hidden" name="taskId" value="<?php echo e($taskId); ?>">
+
+<?php endif; ?>
+
+<?php if(isset($userId)): ?>
+<input type="hidden" name="userId" value="<?php echo e($userId); ?>">
+
 <?php endif; ?>
 
 <div class="mb-3 mt-5">
@@ -31,7 +23,14 @@ $action = $sitePath.'store_task';
 <textarea class="form-control" name="descripition"   rows="3"><?php echo e($descripition ?? ''); ?></textarea>
 </div>
 
+<?php if(isset($admin) && $admin==1): ?>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="status" <?php echo e($status == 1 ? 'checked' : ' '); ?>>
+  <label class="form-check-label" for="flexCheckDefault">
+    Выполнено 
+  </label>
+<?php endif; ?>
+
+
 <button class="btn btn-primary" type="submit">отправить</button>
-</form>
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\OSPanel\domains\localhost\beejee\app\views/create.blade.php ENDPATH**/ ?>
+</form><?php /**PATH C:\OSPanel\domains\localhost\beejee\app\views/part/task_form.blade.php ENDPATH**/ ?>

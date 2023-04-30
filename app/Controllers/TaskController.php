@@ -60,7 +60,7 @@ class TaskController extends BaseController{
     
     public function create(){
      
-        
+    
         $this->render('create');
     }
     
@@ -103,6 +103,53 @@ class TaskController extends BaseController{
         }
         
         
+    }
+    
+    public function edit(){
+        
+        $data = TaskModel::getTaskData($this->params[0]);
+        
+        $this->render('edit_task',['taskId'=>$this->params[0], ...$data]);
+    }
+    
+    public function update(){
+        
+        $error = '';
+        
+        if(!$this->validateEmail($_POST['email']))
+            $error.="Не правильно указан email !\r\n";
+            
+            if(!$this->validateName($_POST['name']))
+                $error.="Не правильно указано имя (длина должна быть от 3 до 15 символов)   !\r\n";
+                
+                if(!$this->validateText($_POST['descripition']))
+                    $error.="Не правильно указан текст (длина должна быть от 3 символов)   !\r\n";
+                    
+                  
+                    
+                    $status =  isset($_POST['status']) ? 1 : 0 ;
+                    $data= [
+                        'id'=>$_POST['taskId'],
+                        'name'=>$_POST['name'],
+                        'email'=>$_POST['email'],
+                        'descripition'=>$_POST['descripition'],
+                        'userId'=>$_POST['userId'],
+                        'status'=>$status
+                    ];
+                    
+                   
+                    if(strlen($error)>1){
+                        $this->error = $error;
+                        $this->render('edit_task',['name'=>$data['name'], 'email'=>$data['email'], 'descripition'=>$data['descripition'],'status'=>$status]);
+                    }
+                    
+                    
+                    if(TaskModel::update($data)){
+                        $this->message = "Данные по задаче обновлены";
+                        $this->viewAllTasks();
+                    }
+                    
+                    
     }
     
     

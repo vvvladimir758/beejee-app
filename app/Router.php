@@ -27,6 +27,7 @@ class Router{
         'edit_task'=>['TaskController','edit'],
         'store_task'=>['TaskController','store'],
         'delete_task'=>['TaskController','store'],
+        'update_task'=>['TaskController','update'],
         'login'=>['AuthController','login'],
         'authentificate'=>['AuthController','authentificate']
     ];

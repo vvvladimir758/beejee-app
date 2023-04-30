@@ -16,7 +16,7 @@ class BaseController {
      */
     private $blade;
     protected $params;
-    protected $user;
+
     
     protected $error;
     protected $message;
@@ -52,9 +52,7 @@ class BaseController {
         
         $this->blade = new Blade('app/views','app/cache');
         $data['sitePath']=SiteConfig::$siteUrl;
-        if($this->user==1){
-            $data['admin']=1;
-        }
+       
         
         if(isset($this->message)){
             $data['message']=$this->message;
@@ -63,6 +61,8 @@ class BaseController {
         if(isset($this->error)){
             $data['message']=$this->error;
         }
+        
+        $data = $this->loadSessionVars($data);
         
         echo $this->blade->make($pageName, $data)->render();
         $this->afterRender();
@@ -73,8 +73,17 @@ class BaseController {
         //действия после загрузки
     }
     
-    
+    protected function crossControllersParams(){
+        $this->params['error'] = $this->error;
+        $this->params['message']= $this->message;
+        return $this->params;
+    }
   
-    
+    protected function loadSessionVars(array $data){
+        if(isset($_SESSION['admin'])){
+            $data['admin'] = $_SESSION['admin'];
+        }
+        return $data;
+    }
     
 }

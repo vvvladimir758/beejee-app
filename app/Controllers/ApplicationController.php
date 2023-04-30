@@ -17,8 +17,8 @@ class ApplicationController extends BaseController {
     
     
     public function main(){
-      
-        $taskController = new TaskController($this->params);
+    
+        $taskController = new TaskController($this->crossControllersParams());
         $taskController->viewAllTasks();
      
     }

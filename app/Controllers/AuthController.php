@@ -48,7 +48,7 @@ class AuthController extends  BaseController{
                     
                     
                     if(UserModel::login($data)){
-                   
+                        $this->adminSessionStart();
                         $this->message = "Добрый день , Админ";
                         $this->router->route('main',['message'=> $this->message]);
                     }

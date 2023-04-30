@@ -42,9 +42,28 @@ class TaskModel extends BaseModel{
     }
     
     public static function tasksPageCount(){
-        $tasks = \ORM::for_table('tasks')->count();
+        $tasks = \ORM::for_table(self::getTable())->count();
         
         return range(1,(ceil($tasks/self::$pageLimit)));
+        
+    }
+    
+    public static function getTaskData($id){
+        
+        $task = \ORM::for_table(self::getTable())
+        ->where(self::getTable().'.id',$id)
+        ->join('users', array(self::getTable().'.user_id', '=', 'users.id'))
+        ->find_one();
+        
+        $data= [
+            'userId'=>$task->user_id,
+            'name'=>$task->name,
+            'email'=>$task->email,
+            'descripition'=>$task->descripition,
+            'status'=>$task->status
+        ];
+        
+        return $data;
         
     }
     
@@ -60,6 +79,19 @@ class TaskModel extends BaseModel{
         
         return true;
     }
+    
+    public static function update($data){
+        
+        
+        $task = \ORM::for_table('tasks')->find_one($data['id']);
+        $task->user_id = $data['userId'];
+        $task->descripition = $data['descripition'];
+        $task->status = $data['status'];
+        $task->save();
+        
+        return true;
+    }
+    
     
     
     
